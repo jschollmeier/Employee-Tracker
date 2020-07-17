@@ -37,12 +37,12 @@ class ORM {
     return this.connection.query(queryString, [table, ...values])
   }
 
-  update(table, objColVals, id) {
-    var queryString = `UPDATE ?? SET ? WHERE ?`;
+  update(table, column, objColVals, id) {
+    var queryString = `UPDATE ?? SET ?? = ? WHERE id = ?`;
 
     console.log(queryString);
 
-    return this.connection.query(queryString, [table, objColVals, id])
+    return this.connection.query(queryString, [table, column, objColVals, id])
   }
   
   innerJoin(colsToSelect, tableOne, tableTwo, tableOneCol, tableTwoCol) {
@@ -80,7 +80,7 @@ module.exports = new ORM(connection);
 
 const test = new ORM(connection);
 
-// test.create("department", ["name"], ["Accounting"])
+// test.update("employee", "first_name", "Seth", 4)
 // .then(results => console.table(results))
 // .then(connection.end())
 // .catch(err=> err);
